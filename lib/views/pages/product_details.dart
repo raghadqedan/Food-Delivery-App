@@ -6,8 +6,7 @@ import '../widgets/counter_widget.dart';
 import '../widgets/product_specs_item.dart';
 
 class ProductDetails extends StatefulWidget {
-  final Product product;
-  const ProductDetails({super.key, required this.product});
+  const ProductDetails({super.key});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -16,21 +15,23 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
+    final Product   product=ModalRoute.of(context)!.settings.arguments as Product  ;
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.grey2,
         actions: [
           IconButton(onPressed: () {
              setState(() {
-                if (widget.product.isFavorite) {
-                  widget.product.isFavorite = false;
-                  favoritesProducts.remove(widget.product);
+                if (product.isFavorite) {
+                  product.isFavorite = false;
+                  favoritesProducts.remove(product);
                 } else {
-                 widget.product.isFavorite = true;
-                  favoritesProducts.add(widget.product);
+                 product.isFavorite = true;
+                  favoritesProducts.add(product);
                 }
               });
-          }, icon:  Icon(  widget.product.isFavorite ? Icons.favorite:Icons.favorite_outline, color:Theme.of(context).primaryColor))
+          }, icon:  Icon(  product.isFavorite ? Icons.favorite:Icons.favorite_outline, color:Theme.of(context).primaryColor))
         ],
         
       ),
@@ -42,7 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               decoration: BoxDecoration(color: AppColors.grey2),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 50),
-                child: Image.network(widget.product.imgUrl, fit: BoxFit.cover),
+                child: Image.network(product.imgUrl, fit: BoxFit.cover),
               ),
             ),
             const SizedBox(
@@ -59,7 +60,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.product.name,
+                              product.name,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -71,7 +72,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               height: 6,
                             ),
                             Text(
-                              widget.product.category.title,
+                             product.category.title,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
@@ -97,7 +98,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(widget.product.description,
+                  Text(product.description,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -110,7 +111,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       children: [
                         Expanded(
                             child: Text(
-                          '\$${widget.product.price.toString()}',
+                          '\$${product.price.toString()}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!

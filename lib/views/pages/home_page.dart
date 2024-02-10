@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivary_app/models/category.dart';
 import 'package:food_delivary_app/models/products.dart';
 import 'package:food_delivary_app/utils/app_colors.dart';
-import 'package:food_delivary_app/views/pages/product_details.dart';
+import 'package:food_delivary_app/utils/app_rotes.dart';
+
 
 import '../widgets/product_item.dart';
 
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int i=0;
   String? selectedCategoryId;
   late List<Product> fillteredProductes;
 
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       }
   @override
   Widget build(BuildContext context) {
+    final orintation=MediaQuery.of(context).orientation;
    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -104,16 +107,16 @@ class _HomePageState extends State<HomePage> {
           GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
-              crossAxisCount: 2,
+              crossAxisCount: orintation==Orientation.portrait?2:4,
             ),
             itemCount: fillteredProductes.length,
             itemBuilder: (context, index) {
               final dummyProduct = fillteredProductes[index];
               //Navigator.of(context). use this to access the navigation stack of my app 
-              return InkWell(onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(_) => ProductDetails(product:dummyProduct),),).then((value) => setState((){})),
+              return InkWell(onTap: ()=>Navigator.of(context).pushNamed(AppRotes().productDetail,arguments:dummyProduct).then((value) => setState((){})),
                 child: ProductItem(dummyProduct:dummyProduct,));
             },
           ),

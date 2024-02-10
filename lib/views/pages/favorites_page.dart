@@ -10,13 +10,11 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+  
   @override
   Widget build(BuildContext context) {
-    // if (favoritesProducts.isEmpty) {
-    //   return const Center(
-    //     child: Text("No Favorites Product"),
-    //   );
-    // }
+  
+
 
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -41,7 +39,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     final Product favproduct = favoritesProducts[index];
                     return FavoritesItem(
                         favProduct: favproduct,
-                        onPressed: () {
+                        onTap: () {
                           setState(() {
                             if (favproduct.isFavorite) {
                               favproduct.isFavorite = false;

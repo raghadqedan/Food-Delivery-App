@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivary_app/utils/app_colors.dart';
+import 'package:food_delivary_app/utils/app_rotes.dart';
 
 import '../../models/products.dart';
-import '../pages/product_details.dart';
+
 
 class FavoritesItem extends StatelessWidget {
   final Product favProduct;
-  VoidCallback onPressed;
+  VoidCallback onTap;
 
-  FavoritesItem({super.key, required this.favProduct, required this.onPressed});
+  FavoritesItem({super.key, required this.favProduct, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+      final orientation =MediaQuery.of(context).orientation;
     return Stack(
       children: [
         InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => ProductDetails(product: favProduct)));
+            Navigator.of(context).pushNamed(AppRotes().productDetail,arguments:favProduct);
           },
           child: Card(
             elevation: 6.0,
@@ -52,18 +54,15 @@ class FavoritesItem extends StatelessWidget {
         Positioned(
           top: 15,
           right: 20,
-          child: InkWell(
-            onTap: () {
-              onPressed();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Icon(
-                Icons.favorite,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
+          child: orientation ==Orientation.portrait?IconButton(
+            icon:const Icon(Icons.favorite),
+            onPressed: onTap,
+            color: Theme.of(context).primaryColor,
+          ):TextButton.icon(
+            icon:const Icon(Icons.favorite),
+            onPressed: onTap,
+            label: const Text('Favorites'),
+          )
         ),
       ],
     );

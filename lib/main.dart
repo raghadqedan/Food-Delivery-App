@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivary_app/utils/app_rotes.dart';
 import 'package:food_delivary_app/views/pages/custom_bottom_navbar.dart';
 import 'package:food_delivary_app/utils/app_theme.dart';
+import 'package:food_delivary_app/views/pages/product_details.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
       home:  const CustomButtomNavbar(),
+      routes:{
+        AppRotes().productDetail:(context)=>const ProductDetails(),
+      },
     );
   }
 }

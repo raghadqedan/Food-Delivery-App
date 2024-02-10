@@ -15,6 +15,7 @@ class _CustomButtomNavbarState extends State<CustomButtomNavbar> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: const Drawer(child: Center(child: Text('Inside Drawer'))),
       appBar: AppBar(
@@ -42,34 +43,37 @@ class _CustomButtomNavbarState extends State<CustomButtomNavbar> {
         ]),
         centerTitle: true,
       ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.favorite),
-            icon: Icon(Icons.favorite_border),
-            label: 'Favorites',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outline),
-            label: 'profile',
-          ),
-        ],
-      ),
+      bottomNavigationBar: size.width >= 800
+          ? null
+          : NavigationBar(
+              //show the appbar if the width of the divice less than 800 else ex if it run in chrome od desktop hide the appbar
+              onDestinationSelected: (int index) {
+                setState(() {
+                  currentPageIndex = index;
+                });
+              },
+              selectedIndex: currentPageIndex,
+              destinations: const <Widget>[
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.home),
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.favorite),
+                  icon: Icon(Icons.favorite_border),
+                  label: 'Favorites',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.person),
+                  icon: Icon(Icons.person_outline),
+                  label: 'profile',
+                ),
+              ],
+            ),
       body: <Widget>[
-         const  HomePage(),
-        FavoritesPage(),
+        const HomePage(),
+        const FavoritesPage(),
         const ProfilePage(),
       ][currentPageIndex],
     );
