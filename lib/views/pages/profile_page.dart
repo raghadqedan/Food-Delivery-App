@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              width: 50,
+              width: 45,
             ),
             TextButton(onPressed: () {}, child: const Text("Edit Profile")),
           ],

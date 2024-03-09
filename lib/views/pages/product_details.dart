@@ -85,9 +85,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const SizedBox(
                     height: 16,
                   ),
-                    Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: const  [
                        ProductSpecsItem(title: "Size", value: "Large"),
                        SizedBox(height: 30, child: VerticalDivider()),
                       ProductSpecsItem(title: "Calories", value: "120 cal"),
@@ -114,7 +114,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           '\$${product.price.toString()}',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyLarge!
+                              .titleLarge!
                               .copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).primaryColor),
